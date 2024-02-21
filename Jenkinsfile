@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define environment variables
-        DATABRICKS_TOKEN = dapi0b777dec2e29b58533d7e115e5c4b022
+        DATABRICKS_TOKEN = 'dapi0b777dec2e29b58533d7e115e5c4b022'
     }
 
     stages {
