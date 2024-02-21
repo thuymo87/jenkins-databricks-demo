@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your/repository.git'
+                git 'https://github.com/thuymo87/jenkins-databricks-demo.git'
             }
         }
         stage('Deploy to Databricks') {
