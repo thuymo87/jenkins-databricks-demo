@@ -1,0 +1,43 @@
+bundle:
+  name: hello-bundle
+
+targets:
+  dev:
+    mode: development
+    workspace:
+      host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
+    default: true
+    resources:
+      jobs:
+        hello-job:
+          name: dev-hello-job
+          tasks:
+            - task_key: hello-task
+              existing_cluster_id: 0115-013817-hjs4cq6m
+              notebook_task:
+                notebook_path: ./demos/examples/hello.ipynb
+  qa:
+    workspace:
+      host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
+    resources:
+      jobs:
+        hello-job:
+          name: qa-hello-job
+          tasks:
+            - task_key: hello-task
+              existing_cluster_id: 0115-013817-hjs4cq6m
+              notebook_task:
+                notebook_path: ./demos/examples/hello.ipynb
+
+  prod:
+    workspace:
+      host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
+    resources:
+      jobs:
+        hello-job:
+          name: prod-hello-job
+          tasks:
+            - task_key: hello-task
+              existing_cluster_id: 0115-013817-hjs4cq6m
+              notebook_task:
+                notebook_path: ./demos/examples/hello.ipynb
