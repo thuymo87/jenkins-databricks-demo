@@ -1,27 +1,60 @@
-pipeline {
-    agent any
+// Filename: Jenkinsfile
+node {
+  def GITREPOREMOTE = "https://github.com/thuymo87/jenkins-databricks-demo.git"
+  def GITBRANCH     = "main"
+  def DBCLIPATH     = "/usr/local/bin"
+  def JQPATH        = "/usr/local/bin"
+  def JOBPREFIX     = "jenkins-demo"
+  def BUNDLETARGET  = "dev"
 
-    environment {
-        // Define environment variables
-        DATABRICKS_TOKEN = 'dapi0b777dec2e29b58533d7e115e5c4b022'
+  stage('Checkout') {
+    git branch: GITBRANCH, url: GITREPOREMOTE
+  }
+  stage('Validate Bundle') {
+    sh """#!/bin/bash
+          ${DBCLIPATH}/databricks bundle validate -t ${BUNDLETARGET}
+       """
+  }
+  stage('Deploy Bundle') {
+    sh """#!/bin/bash
+          ${DBCLIPATH}/databricks bundle deploy -t ${BUNDLETARGET}
+       """
+  }
+  stage('Run Unit Tests') {
+    sh """#!/bin/bash
+          ${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} run-unit-tests
+       """
+  }
+  stage('Run Notebook') {
+    sh """#!/bin/bash
+          ${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} run-dabdemo-notebook
+       """
+  }
+  stage('Evaluate Notebook Runs') {
+    sh """#!/bin/bash
+          ${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} evaluate-notebook-runs
+       """
+  }
+  stage('Import Test Results') {
+    def DATABRICKS_BUNDLE_WORKSPACE_ROOT_PATH
+    def getPath = "${DBCLIPATH}/databricks bundle validate -t ${BUNDLETARGET} | ${JQPATH}/jq -r .workspace.file_path"
+    def output = sh(script: getPath, returnStdout: true).trim()
+
+    if (output) {
+      DATABRICKS_BUNDLE_WORKSPACE_ROOT_PATH = "${output}"
+    } else {
+      error "Failed to capture output or command execution failed: ${getPath}"
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/thuymo87/jenkins-databricks-demo.git'
-            }
-        }
-        stage('Deploy to Databricks') {
-            steps {
-                sh '''
-                    echo "Deploying notebook to Databricks..."
-                    databricks workspace import --json --language PYTHON \
-                        hello_world.ipynb \
-                        /Shared/hello_world_notebook
-                    echo "Notebook deployment complete."
-                '''
-            }
-        }
-    }
+    sh """#!/bin/bash
+          ${DBCLIPATH}/databricks workspace export-dir \
+          ${DATABRICKS_BUNDLE_WORKSPACE_ROOT_PATH}/Validation/Output/test-results \
+          ${WORKSPACE}/Validation/Output/test-results \
+          -t ${BUNDLETARGET} \
+          --overwrite
+       """
+  }
+  stage('Publish Test Results') {
+    junit allowEmptyResults: true, testResults: '**/test-results/*.xml', skipPublishingChecks: true
+  }
 }
