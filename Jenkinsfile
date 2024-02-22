@@ -20,4 +20,9 @@ node {
           ${DBCLIPATH}/databricks bundle deploy -t ${BUNDLETARGET}
        """
   }
+  stage('Run Notebook') {
+    sh """#!/bin/bash
+          ${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} hello-job
+       """
+  }
 }
