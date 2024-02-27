@@ -1,15 +1,5 @@
 bundle:
   name: hello-bundle
-  git:
-    origin_url: https://github.com/thuymo87/jenkins-databricks-demo.git
-
-  on:
-    pull_request:
-      types:
-        - opened
-        - synchronize
-      branches:
-        - main
 
 targets:
   dev:
