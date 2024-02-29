@@ -29,7 +29,7 @@ node {
   // }
   stage('Run pipeline') {
     sh """#!/bin/bash
-          ${DBCLIPATH}/databricks bundle run ${BUNDLETARGET} databricks_jenkins_demo_job --refresh-all
+          ${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} databricks_jenkins_demo_job 
        """
   }
 }
