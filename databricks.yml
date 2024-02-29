@@ -3,8 +3,8 @@ bundle:
   name: jenkins-demo-bundle
 
 targets:
-  dev:
-    mode: development
+  prod:
+    #mode: development
     workspace:
       host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
     default: true
@@ -17,7 +17,7 @@ targets:
               existing_cluster_id: 0115-013817-hjs4cq6m
               notebook_task:
                 notebook_path: ./hello.ipynb
-  prod:
+  qa:
     workspace:
       host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
     resources:
@@ -30,7 +30,8 @@ targets:
               notebook_task:
                 notebook_path: ./hello.ipynb
 
-  qa:
+  dev:
+    mode: development
     workspace:
       host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
     resources:
