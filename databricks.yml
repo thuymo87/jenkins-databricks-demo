@@ -1,5 +1,6 @@
 bundle:
-  name: hello-bundle
+  #name: hello-bundle
+  name: jenkins-demo-bundle
 
 targets:
   dev:
