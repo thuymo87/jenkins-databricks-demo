@@ -5,12 +5,12 @@ bundle:
 targets:
   dev:
     mode: development
-    default: true
     workspace:
       host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
+    default: true
     resources:
       pipelines:
-  # Our DLT pipeline
+      # Our DLT pipeline
         databricks_jenkins_demo_pipeline:
           name: Jenkins demo FE Medium Metrics Pipeline
           target: "jenkins_demo_medium_post_report"
@@ -22,7 +22,6 @@ targets:
           channel: preview
           configuration:
             "bundle.file_path": "/Workspace/${workspace.file_path}"
-
       jobs:
         # A two-task Databricks Workflow - dlt + notebook report
         databricks_jenkins_demo_job:
@@ -52,14 +51,12 @@ targets:
               notebook_task:
                 notebook_path: ./hello.ipynb
   prod:
-    #mode: development
     workspace:
       host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
-    #default: true
     resources:
       jobs:
         hello-job:
-          name: dev-hello-job
+          name: prod-hello-job
           tasks:
             - task_key: hello-task
               existing_cluster_id: 0115-013817-hjs4cq6m
