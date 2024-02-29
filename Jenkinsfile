@@ -19,7 +19,7 @@ node {
   }
   stage('Deploy Bundle') {
     sh """#!/bin/bash
-          ${DBCLIPATH}/databricks bundle deploy -t ${BUNDLETARGET}
+          ${DBCLIPATH}/databricks bundle deploy ${BUNDLETARGET}
        """
   }
   // stage('Run Notebook') {
@@ -29,7 +29,7 @@ node {
   // }
   stage('Run pipeline') {
     sh """#!/bin/bash
-          ${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} databricks_jenkins_demo_job 
+          ${DBCLIPATH}/databricks bundle run ${BUNDLETARGET} databricks_jenkins_demo_job 
        """
   }
 }
