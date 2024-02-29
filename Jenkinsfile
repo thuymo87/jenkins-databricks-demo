@@ -19,7 +19,7 @@ node {
   }
   stage('Deploy Bundle') {
     sh """#!/bin/bash
-          ${DBCLIPATH}/databricks bundle deploy ${BUNDLETARGET}
+          ${DBCLIPATH}/databricks bundle deploy -t ${BUNDLETARGET}
        """
   }
   // stage('Run Notebook') {
