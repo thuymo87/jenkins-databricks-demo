@@ -57,7 +57,7 @@ targets:
                   pipeline_id: ${resources.pipelines.databricks_jenkins_demo_pipeline.id}
               - task_key: jenkins_demo_medium_notebook_report
                 depends_on:
-                  - task_key: Jenkins_demo_dlt_medium_pipeline
+                  - task_key: jenkins_demo_dlt_medium_pipeline
                 existing_cluster_id: 0115-013817-hjs4cq6m  
                 notebook_task:
                   base_parameters:
