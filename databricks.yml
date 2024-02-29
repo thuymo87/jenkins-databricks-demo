@@ -37,8 +37,8 @@ targets:
         pipelines:
     # Our DLT pipeline
           databricks_jenkins_demo_pipeline:
-            name: Jenkins demo FE Medium Metrics Pipeline"
-            target: "Jenkins_demo_medium_post_report"
+            name: Jenkins demo FE Medium Metrics Pipeline
+            target: "jenkins_demo_medium_post_report"
             libraries:
               - file:
                   path: ./ingest.py
@@ -51,7 +51,7 @@ targets:
         jobs:
           # A two-task Databricks Workflow - dlt + notebook report
           databricks_jenkins_demo_job:
-            name: Jenkins demo Metrics for FE Medium Posts"
+            name: Jenkins demo Metrics for FE Medium Posts
             tasks:
               - task_key: mo_dlt_medium_pipeline
                 pipeline_task:
@@ -62,5 +62,5 @@ targets:
                 existing_cluster_id: 0115-013817-hjs4cq6m  
                 notebook_task:
                   base_parameters:
-                    dbname: "Jenkins_demo_medium_post_report"
+                    dbname: "jenkins_demo_medium_post_report"
                   notebook_path: ./fe_medium_report.py
