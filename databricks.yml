@@ -57,7 +57,7 @@ targets:
               - task_key: mo_dlt_medium_pipeline
                 pipeline_task:
                   pipeline_id: ${resources.pipelines.databricks_jenkins_demo_pipeline.id}
-              - task_key: "qa_medium_notebook_report"
+              - task_key: "medium_notebook_report"
                 depends_on:
                   - task_key: mo_dlt_medium_pipeline
                 existing_cluster_id: 0115-013817-hjs4cq6m  
