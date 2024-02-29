@@ -27,9 +27,9 @@ node {
   //         ${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} hello-job
   //      """
   // }
-  // stage('Run pipeline') {
-  //   sh """#!/bin/bash
-  //         ${DBCLIPATH}/databricks bundle run ${BUNDLETARGET} databricks_jenkins_demo_job 
-  //      """
-  // }
+  stage('Run pipeline') {
+    sh """#!/bin/bash
+          ${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} databricks_jenkins_demo_job 
+       """
+  }
 }
