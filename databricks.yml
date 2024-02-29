@@ -53,14 +53,14 @@ targets:
           databricks_jenkins_demo_job:
             name: Jenkins demo Metrics for FE Medium Posts"
             tasks:
-              - task_key: jenkin_demo_dlt_medium_pipeline
+              - task_key: mo_dlt_medium_pipeline
                 pipeline_task:
                   pipeline_id: ${resources.pipelines.databricks_jenkins_demo_pipeline.id}
-              - task_key: jenkins_demo_medium_notebook_report
+              - task_key: "prod_medium_notebook_report"
                 depends_on:
-                  - task_key: jenkins_demo_dlt_medium_pipeline
+                  - task_key: mo_dlt_medium_pipeline
                 existing_cluster_id: 0115-013817-hjs4cq6m  
                 notebook_task:
                   base_parameters:
-                    dbname: "jenkins_demo_medium_post_report"
+                    dbname: "mo_medium_post_report_prod"
                   notebook_path: ./fe_medium_report.py
