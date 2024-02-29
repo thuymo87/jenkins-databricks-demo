@@ -14,7 +14,8 @@ dbutils.widgets.text("dbname", "")
 # COMMAND ----------
 
 # Read Medium metrics table
-full_table_path = "hive_metastore." + dbutils.widgets.get("dbname") + ".medium_metrics"
+#full_table_path = "hive_metastore." + dbutils.widgets.get("dbname") + ".medium_metrics"
+full_table_path = "hive_metastore." + "jenkins_demo_medium_post_report" + ".medium_metrics"
 enrichedDF = spark.read.table(full_table_path)
 
 # COMMAND ----------
