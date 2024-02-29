@@ -7,7 +7,7 @@ node {
   def JQPATH        = "/usr/local/bin"
   def JOBPREFIX     = "jenkins-demo"
   //def BUNDLETARGET  = "dev"
-  def BUNDLETARGET = "prod"
+  def BUNDLETARGET = "qa"
 
   stage('Checkout') {
     git branch: GITBRANCH, url: GITREPOREMOTE
