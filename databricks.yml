@@ -55,7 +55,7 @@ targets:
     #mode: development
     workspace:
       host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
-    default: true
+    #default: true
     resources:
       jobs:
         hello-job:
