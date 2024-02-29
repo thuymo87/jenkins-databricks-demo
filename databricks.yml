@@ -62,5 +62,5 @@ targets:
                 existing_cluster_id: 0115-013817-hjs4cq6m  
                 notebook_task:
                   base_parameters:
-                    dbname: "mo_medium_post_report_prod"
+                    dbname: "Jenkins_demo_medium_post_report"
                   notebook_path: ./fe_medium_report.py
