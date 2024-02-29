@@ -9,36 +9,36 @@ targets:
     workspace:
       host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
     resources:
-        pipelines:
-    # Our DLT pipeline
-          databricks_jenkins_demo_pipeline:
-            name: Jenkins demo FE Medium Metrics Pipeline
-            target: "jenkins_demo_medium_post_report"
-            libraries:
-              - file:
-                  path: ./ingest.py
-              - file:
-                  path: ./get_metrics.py
-            channel: preview
-            configuration:
-              "bundle.file_path": "/Workspace/${workspace.file_path}"
+      pipelines:
+  # Our DLT pipeline
+        databricks_jenkins_demo_pipeline:
+          name: Jenkins demo FE Medium Metrics Pipeline
+          target: "jenkins_demo_medium_post_report"
+          libraries:
+            - file:
+                path: ./ingest.py
+            - file:
+                path: ./get_metrics.py
+          channel: preview
+          configuration:
+            "bundle.file_path": "/Workspace/${workspace.file_path}"
 
-        jobs:
-          # A two-task Databricks Workflow - dlt + notebook report
-          databricks_jenkins_demo_job:
-            name: Jenkins demo Metrics for FE Medium Posts
-            tasks:
-              - task_key: mo_dlt_medium_pipeline
-                pipeline_task:
-                  pipeline_id: ${resources.pipelines.databricks_jenkins_demo_pipeline.id}
-              - task_key: "medium_notebook_report"
-                depends_on:
-                  - task_key: mo_dlt_medium_pipeline
-                existing_cluster_id: 0115-013817-hjs4cq6m  
-                notebook_task:
-                  base_parameters:
-                    dbname: "jenkins_demo_medium_post_report"
-                  notebook_path: ./fe_medium_report.py
+      jobs:
+        # A two-task Databricks Workflow - dlt + notebook report
+        databricks_jenkins_demo_job:
+          name: Jenkins demo Metrics for FE Medium Posts
+          tasks:
+            - task_key: mo_dlt_medium_pipeline
+              pipeline_task:
+                pipeline_id: ${resources.pipelines.databricks_jenkins_demo_pipeline.id}
+            - task_key: "medium_notebook_report"
+              depends_on:
+                - task_key: mo_dlt_medium_pipeline
+              existing_cluster_id: 0115-013817-hjs4cq6m  
+              notebook_task:
+                base_parameters:
+                  dbname: "jenkins_demo_medium_post_report"
+                notebook_path: ./fe_medium_report.py
   qa:
     workspace:
       host: https://loyalty-nz-terraform-databricks-production.cloud.databricks.com 
